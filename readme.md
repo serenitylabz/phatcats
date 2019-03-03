@@ -138,14 +138,18 @@ otherwise, they might not be needed!
 
 This library supports the following types:
 
+* `AssociativeArray`
+* `Attempt`
+* `Either`
 * `LinkedList`
 * `Maybe`
-* `Either`
 * `MaybeT`
 * `Validation`
-* `AssociativeArray`
 
-Note that not all supported types are instances of the above type classes.
+Note that not all of these types have instances of the above type classes.
+Likewise there are instances of type classes that do not have corresponding type
+(there are instances of `Monoid` for both `int`s and `string`s but no
+corresponding library types).
 
 ### LinkedList
 
