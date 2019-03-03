@@ -136,26 +136,6 @@ object method is `pure` from the `Applicative` type class.  This is the reason
 that the type classes in the [`Typeclass` directory](./src/Typeclass) exist;
 otherwise, they might not be needed!
 
-```php
-$m = new MaybeMonoid(new StringMonoid());
-$maybe1 = Maybe::fromValue("hello");
-$maybe2 = Maybe::fromValue(" world");
-$appendedMaybe = $m->append($maybe1, $maybe2);
-```
-But `Maybe`s also have an `append` method which you could like so:
-
-```php
-$maybe1 = Maybe::fromValue("hello");
-$maybe2 = Maybe::fromValue(" world");
-$appendedMaybe = $maybe1->append($maybe2, new StringMonoid());
-```
-This is a more convenient way to use many of the provided type classes but the
-drawback is that you don't get to choose the instance that is used; it has been
-chosen by the implementation (but rest assured that they all use the Haskell
-implementation!).  In some cases there can be several different instances of a
-type class for some type so if you want to used a non-default one, you'll have
-to resort the the first method above.
-
 ## Types
 
 This library supports the following types:
