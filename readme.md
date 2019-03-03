@@ -59,8 +59,6 @@ The following type classes are supported:
 * `Functor`
 * `Monad`
 * `Applicative`
-* `Traversable`
-* `Foldable`
 
 Note that not all types support all type classes.  For more information on type
 classes check out [the wikipedia page](https://en.wikipedia.org/wiki/Type_class).
