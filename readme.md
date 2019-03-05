@@ -76,8 +76,8 @@ interface SemiGroup {
 ```
 
 The above interface can be implemented to combine two objects of any type.  For
-example, here's an implementation for the `Maybe` type (this is the same as the
-Haskell instance):
+example, here's an implementation for the `Maybe` type (this gives the same
+behavior as the Haskell instance):
 
 ```php
 class MaybeSemiGroup implements SemiGroup {
@@ -124,15 +124,16 @@ trait ObjectSemiGroup {
 }
 ```
 
-Note the second `SemiGroup` parameter.  This is used to combine the values
-contained within the objects that are being appended.  This is the same value
-that was passed as a constructor argument in the implementation of the
-`MaybeSemiGroup` class.
+The first argument is a value whose type should be the same as the type of
+`this` and will be _appended_ to it.  Also note the second `SemiGroup`
+parameter.  This is used to combine the values contained within the objects that
+are being appended.  This is the same value that was passed as a constructor
+argument in the implementation of the `MaybeSemiGroup` class above.
 
-But one example of a type class function that cannot be implemented as a target
-object method is `pure` from the `Applicative` type class.  This is the reason
-that the type classes in the [`Typeclass` directory](./src/Typeclass) exist;
-otherwise, they might not be needed!
+One example of a type class function that cannot be implemented as a target
+object method is `pure` from the `Applicative` type class.  This is the main
+reason that the type classes in the [`Typeclass` directory](./src/Typeclass)
+exist; otherwise, they might not be needed!
 
 ## Types
 
@@ -147,8 +148,8 @@ This library supports the following types:
 * `Validation`
 
 Note that not all of these types have instances of the above type classes.
-Likewise there are instances of type classes that do not have corresponding type
-(there are instances of `Monoid` for both `int`s and `string`s but no
+Likewise there are instances of type classes that do not have a corresponding
+type (e.g., there are instances of `Monoid` for both `int`s and `string`s but no
 corresponding library types).
 
 ### LinkedList
