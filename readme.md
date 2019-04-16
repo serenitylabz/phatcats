@@ -6,7 +6,7 @@
 
 * [About](#about)
 * [Running Tests](#running-tests)
-* [Typeclasses](#typeclasses)
+* [Type Classes](#type-classes)
 * [Types](#types)
     * [LinkedList](#linkedlist)
     * [Maybe](#maybe)
@@ -50,32 +50,107 @@ If you have docker installed you can run tests with:
 
     $ make test
 
-## Typeclasses
+## Type Classes
 
-The following typeclasses are supported:
+The following type classes are supported:
 
 * `SemiGroup`
 * `Monoid`
 * `Functor`
 * `Monad`
 * `Applicative`
-* `Traversable`
-* `Foldable`
 
-Note that not all types support all typeclasses.
+Note that not all types support all type classes.  For more information on type
+classes check out [the wikipedia page](https://en.wikipedia.org/wiki/Type_class).
+
+### A Tale of Two Types of Type Class
+
+The [`Typeclass` directory](./src/Typeclass) contains the type classes that this
+library implements.  They are implemented as interfaces that contain the methods
+of the type class.  For example this is the `SemiGroup` type class:
+
+```php
+interface SemiGroup {
+  function append($left, $right);
+}
+```
+
+The above interface can be implemented to combine two objects of any type.  For
+example, here's an implementation for the `Maybe` type (this gives the same
+behavior as the Haskell instance):
+
+```php
+class MaybeSemiGroup implements SemiGroup {
+
+  $innerSemiGroup;
+
+  public function __construct(SemiGroup $innerSemiGroup) {
+    $this->innerSemiGroup = $innerSemiGroup;
+  }
+
+  function append($left, $right) {
+    if ($left->isNothing()) {
+      $result = $right;
+    } else {
+      if ($right->isNothing()) {
+        $result = $left;
+      } else {
+        // both $left and $right are Just
+        $lVal = $left->get();
+        $rVal = $right->get();
+        $innerAppended = $this->innerSemiGroup->append($lVal, $rVal);
+
+        $result = Maybe::fromValue($innerAppended);
+      }
+    }
+
+    return $result;
+  }
+}
+```
+
+But you may also notice the [`ObjectTypeclass`
+directory](./src/ObjectTypeclass).  This directory contains a set of traits that
+mirror the type class interfaces. It turns out that in a majority of cases type
+class functions can be implemented as methods on the target type.  Therefore,
+most of the type classes have counterparts in the [`ObjectTypeclass`
+directory](./src/ObjectTypeclass) directory.  These _object_ type classes are
+prefixed with `Object`.  For example, here's `ObjectSemiGroup`, the object
+version of the `SemiGroup` type class:
+
+```php
+trait ObjectSemiGroup {
+    abstract function append($appendee, SemiGroup $innerSemigroup);
+}
+```
+
+The first argument is a value whose type should be the same as the type of
+`this` and will be _appended_ to it.  Also note the second `SemiGroup`
+parameter.  This is used to combine the values contained within the objects that
+are being appended.  This is the same value that was passed as a constructor
+argument in the implementation of the `MaybeSemiGroup` class above.
+
+One example of a type class function that cannot be implemented as a target
+object method is `pure` from the `Applicative` type class.  This is the main
+reason that the type classes in the [`Typeclass` directory](./src/Typeclass)
+exist; otherwise, they might not be needed!
 
 ## Types
 
 This library supports the following types:
 
+* `AssociativeArray`
+* `Attempt`
+* `Either`
 * `LinkedList`
 * `Maybe`
-* `Either`
 * `MaybeT`
 * `Validation`
-* `AssociativeArray`
 
-Note that not all supported types are instances of the above type classes.
+Note that not all of these types have instances of the above type classes.
+Likewise there are instances of type classes that do not have a corresponding
+type (e.g., there are instances of `Monoid` for both `int`s and `string`s but no
+corresponding library types).
 
 ### LinkedList
 
@@ -173,7 +248,7 @@ $vals = $fs();
 
 #### LinkedList Traversable
 
-The `traverse` method of the `Traversable` typeclass is another method that at
+The `traverse` method of the `Traversable` type class is another method that at
 first may seem a little strange but is actually quite useful.  `traverse` takes
 as its first argument a function that takes an element of the `LinkedList` and
 returns some monad.  As its second argument it takes an instance of that same
@@ -211,7 +286,7 @@ $divisions = $l->traverse($divideTwelveBy);
 // $divisions = Nothing;
 ```
 
-The `Traversable` typeclass also has a method `sequence` that is useful for the
+The `Traversable` type class also has a method `sequence` that is useful for the
 situation when you already have a `LinkedList` of some monad:
 
 ```php
@@ -366,7 +441,7 @@ $maybeUppercaseOfFirstLetter = $a->map('strtoupper')
                                  ->map(function ($str) {
                                     return substr($str, 0, 1);
                                  });
-                                 
+
 // $maybeUppercaseOfFirstLetter = Just('A');
 ```
 
