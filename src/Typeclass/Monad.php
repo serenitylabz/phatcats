@@ -13,6 +13,21 @@ interface Monad extends Applicative {
   function flatMap($ma, callable $f);
 
   /**
+   * Sequentially compose two actions, discarding any value produced by the
+   * first, like sequencing operators (such as the semicolon) in imperative
+   * languages.
+   *
+   * This is the same as the (>>) function in Haskell.  In fact, the above
+   * description was take directly from its documentation
+   * (http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Monad.html#v:-62--62-)
+   *
+   * @param $ma :: m a: The action to be composed after this one.
+   * @return $ma :: m a: A new action that is the composition of this action
+   * with the given action.
+   */
+  function then($ma);
+
+  /**
    * Flattens a nested context.
    * @param $mma :: m (m a) A value in a context m which itself is in a context
    *        m.
