@@ -32,4 +32,13 @@ class MaybeMonadTest extends MonadTest {
   protected function getMonadicFunctionG() {
     return function($i) { return $this->maybeMonad->pure($i . ''); };
   }
+
+  public function testThen() {
+    $just1 = Maybe::fromValue(1);
+    $just2 = Maybe::fromValue(2);
+    $result = $this->maybeMonad->then($just1, $just2);
+    $expected = $just2;
+
+    $this->assertEquals($expected, $result);
+  }
 }

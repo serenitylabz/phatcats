@@ -17,8 +17,8 @@ abstract class BaseMonad extends BaseApplicative implements Monad {
     return $this->map($ma, $f)->join();
   }
 
-  public function then($ma) {
-    return $this->flatMap(function($ignore) { return $ma; });
+  public function then($ma, $mb) {
+    return $this->flatMap($ma, function($ignore) use ($mb) { return $mb; });
   }
 
   public function join($mma) {

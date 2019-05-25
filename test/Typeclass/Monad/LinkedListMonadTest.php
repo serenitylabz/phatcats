@@ -39,4 +39,13 @@ class LinkedListMonadTest extends MonadTest {
       return $this->factory->fromNativeArray(str_split(str_repeat(".", $i)));
     };
   }
+
+  public function testThen() {
+    $list1 = $this->factory->fromNativeArray([1, 2, 3]);
+    $list2 = $this->factory->fromNativeArray([4, 5, 6]);
+    $result = $this->linkedListMonad->then($list1, $list2);
+    $expected = $this->factory->fromNativeArray([4, 5, 6, 4, 5, 6, 4, 5, 6]);
+
+    $this->assertEquals($expected, $result);
+  }
 }

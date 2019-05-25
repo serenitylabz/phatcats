@@ -21,11 +21,12 @@ interface Monad extends Applicative {
    * description was take directly from its documentation
    * (http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Monad.html#v:-62--62-)
    *
-   * @param $ma :: m a: The action to be composed after this one.
-   * @return $ma :: m a: A new action that is the composition of this action
-   * with the given action.
+   * @param $ma :: m a: The first action
+   * @param $mb :: m b: The action to be run after $ma
+   * @return :: m b: A new action that is the composition of the first action
+   * followed by the second action.
    */
-  function then($ma);
+  function then($ma, $mb);
 
   /**
    * Flattens a nested context.
