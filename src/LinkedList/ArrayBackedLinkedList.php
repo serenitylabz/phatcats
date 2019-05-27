@@ -221,5 +221,33 @@ class ArrayBackedLinkedList extends LinkedList {
     return $split;
   }
 
+  /**
+   * @see PhatCats\LinkedList\LinkedList::all()
+   */
+  public function all(callable $pred): bool {
+    $result = true;
+    foreach ($this->array as $value) {
+      $result = $result && $pred($value);
+      if (!$result) {
+        break;
+      }
+    }
 
+    return $result;
+  }
+
+  /**
+   * @see PhatCats\LinkedList\LinkedList::any()
+   */
+  public function any(callable $pred): bool {
+    $result = false;
+    foreach ($this->array as $value) {
+      $result = $result || $pred($value);
+      if ($result) {
+        break;
+      }
+    }
+
+    return $result;
+  }
 }

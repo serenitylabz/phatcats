@@ -707,4 +707,57 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expected, $reversed);
   }
 
+  public function testAllForAllTrue() {
+    $l = $this->makeListFromArray([2, 4, 6, 8, 56]);
+    $isEven = function ($i) { return $i % 2 == 0; };
+    $result = $l->all($isEven);
+    $expected = true;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAllForOneFalse() {
+    $l = $this->makeListFromArray([2, 3, 4, 6, 8, 56]);
+    $isEven = function ($i) { return $i % 2 == 0; };
+    $result = $l->all($isEven);
+    $expected = false;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAllForEmptyList() {
+    $l = $this->makeListFromArray([]);
+    $isEven = function ($i) { return $i % 2 == 0; };
+    $result = $l->all($isEven);
+    $expected = true;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAnyForOneTrue() {
+    $l = $this->makeListFromArray([2, 3, 4, 6, 8, 56]);
+    $isOdd = function ($i) { return !($i % 2 == 0); };
+    $result = $l->any($isOdd);
+    $expected = true;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAnyForNoneTrue() {
+    $l = $this->makeListFromArray([2, 4, 6, 8, 56]);
+    $isOdd = function ($i) { return !($i % 2 == 0); };
+    $result = $l->any($isOdd);
+    $expected = false;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAnyForEmptyList() {
+    $l = $this->makeListFromArray([]);
+    $isOdd = function ($i) { return !($i % 2 == 0); };
+    $result = $l->any($isOdd);
+    $expected = false;
+
+    $this->assertEquals($expected, $result);
+  }
 }

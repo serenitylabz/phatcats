@@ -314,4 +314,20 @@ abstract class LinkedList {
     $emptyList = (new LinkedListFactory())->empty();
     return $this->foldLeft($emptyList, $cons);
   }
+
+  /**
+   * Returns true if all of the elements in the `LinkedList` satisfy the predicate.
+   *
+   * @param $pred :: callable, a -> boolean
+   * @return bool
+   */
+  public abstract function all(callable $pred): bool;
+
+  /**
+   * Returns true if any of the elements in the `LinkedList` satisfy the predicate.
+   *
+   * @param $pred :: callable, a -> boolean
+   * @return bool
+   */
+  public abstract function any(callable $pred): bool;
 }

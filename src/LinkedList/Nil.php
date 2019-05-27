@@ -108,5 +108,17 @@ class Nil extends LinkedList {
     return new Tuple($this, $this);
   }
 
+  /**
+   * @see PhatCats\LinkedList\LinkedList::all()
+   */
+  public function all(callable $pred): bool {
+    return true;
+  }
 
+  /**
+   * @see PhatCats\LinkedList\LinkedList::any()
+   */
+  public function any(callable $pred): bool {
+    return false;
+  }
 }

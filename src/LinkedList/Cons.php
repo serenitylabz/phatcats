@@ -180,4 +180,18 @@ class Cons extends LinkedList {
     $second = $this->drop($i);
     return new Tuple($first, $second);
   }
+
+  /**
+   * @see PhatCats\LinkedList\LinkedList::all()
+   */
+  public function all(callable $pred): bool {
+    return $pred($this->value) ? $this->tail->all($pred) : false;
+  }
+
+  /**
+   * @see PhatCats\LinkedList\LinkedList::any()
+   */
+  public function any(callable $pred): bool {
+    return $pred($this->value) ? true : $this->tail->any($pred);
+  }
 }
