@@ -29,20 +29,24 @@ abstract class AlternativeTest extends TestCase {
     $first = $this->alternative->or($alt1alt2, $this->alt3);
     $second = $this->alternative->or($this->alt1, $alt2alt3);
 
-    $this->assertEquals($first, $second);
+    $this->assertAlternativesEqual($first, $second);
   }
 
   public function testLeftEmpty() {
     $ident = $this->alternative->empty();
     $result = $this->alternative->or($ident, $this->alt1);
 
-    $this->assertEquals($this->alt1, $result);
+    $this->assertAlternativesEqual($this->alt1, $result);
   }
 
   public function testRightEmpty() {
     $ident = $this->alternative->empty();
     $result = $this->alternative->or($this->alt1, $ident);
 
-    $this->assertEquals($this->alt1, $result);
+    $this->assertAlternativesEqual($this->alt1, $result);
+  }
+
+  protected function assertAlternativesEqual($alt1, $alt2) {
+    return $this->assertEquals($alt1, $alt2);
   }
 }
