@@ -82,6 +82,19 @@ class ArrayTest extends TestCase {
 
       $this->assertEquals($arr->sequence($this->monad), $expected);
     }
+
+  public function testForEach() {
+    $arr = ['1' => 1,
+            '2' => 2,
+            '3' => 3];
+    $a = new AssociativeArray($arr);
+    $b = [];
+    foreach($a as $k => $v) {
+      $b[$k] = $v;
+    }
+
+    $this->assertEquals($arr, $b);
+  }
 }
 
 /**

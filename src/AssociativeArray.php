@@ -5,7 +5,7 @@ namespace PhatCats;
 use PhatCats\ObjectTypeclass\ObjectTraversable;
 
 // Just a wrapper around the native PHP array to allow for cool FP goodness.
-class AssociativeArray {
+class AssociativeArray implements \IteratorAggregate {
     use ObjectTraversable;
 
     protected $array;
@@ -54,5 +54,9 @@ class AssociativeArray {
 	$result = array_reduce($this->array, $foldingFn, $init);
 
 	return $result;
+    }
+
+  public function getIterator() : \Traversable {
+      return new \ArrayIterator($this->array);
     }
 }
