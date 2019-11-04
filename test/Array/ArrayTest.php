@@ -22,7 +22,7 @@ class ArrayTest extends TestCase {
 	$eitherResults = $intsArray->traverse(function ($i) use ($dividend) {
       return divide($dividend, $i);
 	}, $this->monad);
-	$expected = Either::fromValue([6, 3, 2]);
+	$expected = Either::fromValue(new AssociativeArray([6, 3, 2]));
 
 	$this->assertEquals($expected, $eitherResults);
   }
@@ -46,7 +46,7 @@ class ArrayTest extends TestCase {
 	$eitherResult = $arr->traverse(function ($ignore) {
       throw new \Exception('This should not affect the traversal as it should not be called!');
 	}, $this->monad);
-	$expected = Either::fromValue([]);
+	$expected = Either::fromValue(new AssociativeArray([]));
 
 	$this->assertEquals($expected, $eitherResult);
   }
@@ -79,7 +79,7 @@ class ArrayTest extends TestCase {
 
   public function testHandlingOfNullArgument() {
     $arr = new AssociativeArray(null);
-    $expected = Either::fromValue([]);
+    $expected = Either::fromValue(new AssociativeArray([]));
 
     $this->assertEquals($arr->sequence($this->monad), $expected);
   }

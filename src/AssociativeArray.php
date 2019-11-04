@@ -21,8 +21,6 @@ class AssociativeArray implements \ArrayAccess, \IteratorAggregate {
     $this->array = is_null($array) ? [] : $array;
   }
 
-  // TODO: This is broken. It returns an instance of the given Monad wrapping
-  // a PHP _native_ array; not an AssociativeArray.
   public function traverse(callable $f, $monad) {
 
 	// Initial value for the fold: an empty array wrapped in a default
@@ -58,7 +56,11 @@ class AssociativeArray implements \ArrayAccess, \IteratorAggregate {
 	};
 
 	// Do the fold.
+    // The type here is Monad[array]
 	$result = array_reduce($this->array, $foldingFn, $init);
+
+    // convert the type to Monad[AssociativeArray[a]]
+    $result = $monad->map($result, function ($arr) { return new AssociativeArray($arr); });
 
 	return $result;
   }
