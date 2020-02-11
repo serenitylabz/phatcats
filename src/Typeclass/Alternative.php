@@ -22,20 +22,4 @@ interface Alternative extends Applicative {
    * @return $ma :: m a
    */
   function empty();
-
-  /**
-   * Repeatedly applies the action to return zero or more values.
-   *
-   * @param $v :: m a : an action to apply.
-   * @return :: m (LinkedList a)
-   */
-  function zeroOrMore($v);
-
-  /**
-   * Repeatedly applies the action to return one or more values.
-   *
-   * @param $v :: m a : an action to apply.
-   * @return :: m (LinkedList a)
-   */
-  function oneOrMore($v);
 }

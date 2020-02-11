@@ -3,12 +3,10 @@
 namespace PhatCats\LinkedList;
 
 use PhatCats\Typeclass\Alternative;
-use PhatCats\Typeclass\AlternativeTrait;
 use PhatCats\Typeclass\BaseApplicativeForObjectApplicative;
 use PhatCats\LinkedList\LinkedList;
 
 class LinkedListAlternative extends BaseApplicativeForObjectApplicative implements Alternative {
-  use AlternativeTrait;
 
   private $factory;
 

@@ -3,12 +3,10 @@
 namespace PhatCats\Attempt;
 
 use PhatCats\Typeclass\Alternative;
-use PhatCats\Typeclass\AlternativeTrait;
 use PhatCats\Typeclass\BaseApplicativeForObjectApplicative;
 use PhatCats\Attempt\Attempt;
 
 class AttemptAlternative extends BaseApplicativeForObjectApplicative implements Alternative {
-  use AlternativeTrait;
 
   private $errorAlternative;
 

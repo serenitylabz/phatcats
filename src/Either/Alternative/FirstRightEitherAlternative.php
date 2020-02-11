@@ -3,7 +3,6 @@
 namespace PhatCats\Either\Alternative;
 
 use PhatCats\Typeclass\Alternative;
-use PhatCats\Typeclass\AlternativeTrait;
 use PhatCats\Typeclass\BaseApplicativeForObjectApplicative;
 use PhatCats\Either\Either;
 
@@ -34,7 +33,6 @@ use PhatCats\Either\Either;
  * are never appended.
  */
 class FirstRightEitherAlternative extends BaseApplicativeForObjectApplicative implements Alternative {
-  use AlternativeTrait;
 
   private $leftAlternative;
 
