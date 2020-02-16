@@ -50,4 +50,24 @@ abstract class ApplicativeTest extends TestCase {
 
     $this->assertEquals($exptectedResult, $result);
   }
+
+  public function testTakeAndThen() {
+    $m1 = $this->getApplicative()->pure(1);
+    $m2 = $this->getApplicative()->pure(2);
+
+    $result = $this->getApplicative()->takeAndThen($m1, $m2);
+    $expected = $m1;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testAndThenTake() {
+    $m1 = $this->getApplicative()->pure(1);
+    $m2 = $this->getApplicative()->pure(2);
+
+    $result = $this->getApplicative()->andThenTake($m1, $m2);
+    $expected = $m2;
+
+    $this->assertEquals($expected, $result);
+  }
 }
