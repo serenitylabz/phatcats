@@ -3,9 +3,11 @@
 namespace PhatCats\Validation;
 
 use PhatCats\Typeclass\Applicative;
+use PhatCats\Typeclass\ApplicativeTrait;
 use PhatCats\Typeclass\SemiGroup;
 
 class ValidationApplicative implements Applicative {
+  use ApplicativeTrait;
 
   private $failureSemigroup;
 

@@ -24,6 +24,20 @@ interface Applicative extends Functor {
   function apply($ff, $fa = null);
 
   /**
+   * Sequences two actions taking the value of the first one and discarding the
+   * value of the second. Equivalent to Haskell's <*.  See
+   * https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Base.html#%3C%2A.
+   */
+  function takeAndThen($first, $second);
+
+  /**
+   * Sequences two actions discarding the value of the first one and keeping the
+   * value of the second. Equivalent to Haskell's *>.  See
+   * https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Base.html#%2A%3E.
+   */
+  function andThenTake($first, $second);
+
+  /**
    * The `__invoke` magic method.  Allows one to call an `Applicative` as if it
    * were a function as in the following:
    *
